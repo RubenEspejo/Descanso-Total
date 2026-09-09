@@ -1,1 +1,36 @@
+body {
+    margin: 0;
+}
 
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 15px 30px;
+    background-color: white;
+}
+
+.logo {
+    display: block;
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #0b2d48;
+    font-family: Arial, sans-serif;
+}
+
+nav a:hover {
+    color: #bd902f;
+}
