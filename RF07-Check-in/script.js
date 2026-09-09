@@ -4,7 +4,8 @@
     const codigoValido = "ABCDFG";
 
 
-    const inputTexto2 = document.getElementById('btnRegistrar');
+    const inputTexto2 = document.getElementById('registro');
+    const botonRequistar = document.getElementById('btnRegistrar');
     const parrafoResultado2 = document.getElementById('resultado2');
 
 
@@ -22,7 +23,7 @@
         
     });
 
-    boton.addEventListener('click', function() {
+    botonRequistar.addEventListener('click', function() {
 
         const textoIngresado2 = inputTexto2.value;
 
