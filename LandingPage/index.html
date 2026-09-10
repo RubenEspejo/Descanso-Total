@@ -1,43 +1,241 @@
 <!DOCTYPE html>
-<html> 
-    <head>
-        <meta charset="utf-8"/>
-        <title>Descanso Total</title>
-        <link rel="stylesheet" href="estilos.css">
-            <link rel="stylesheet" href="estilos.css">
-            <script src="script.js" defer></script>
-    </head>
-    <body>
+<html lang="es">
 
-        <header>
-                <img src="images/logo.png"
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hotel Descanso Total | Tu descanso comienza frente al mar</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+
+<body>
+
+<header>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-light">
+
+        <div class="container">
+
+            <!-- LOGO -->
+            <a class="navbar-brand" href="index.html">
+                <img
+                    src="images/logo.png"
                     alt="Logo Hotel Descanso Total"
-                    class="logo">
-
-            <nav>
-                <a href="index.html">Inicio</a>
-                 <a href="../RF01-Disponibilidad/HTML/index.html">
-                 Buscar habitación
-                    </a>
-                <a href="paginas/nosotros.html">Nosotros</a>
-                <a href="paginas/contacto.html">Contacto</a>
-                <a href="paginas/login.html">Iniciar Sesión</a>
-                <a href="paginas/registro.html">Registrarse</a>
-                <a href="Requisito5/admin.html">Panel de Administración</a>
-
-            </nav>
-        </header>
-        <main>
-            <h2>Tu descanso comienza frente al mar</h2>
-            <p>Disfruta de una estadía inolvidable en Viña del Mar</p>
+                    width="300">
+            </a>
 
 
-        </main>
+            <!-- BOTÓN HAMBURGUESA -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Abrir navegación">
 
-        <footer>
-            <p>&copy; 2026 Hotel Descanso Total · Viña del Mar, Chile</p>
-        </footer>
-     </body>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <!-- MENÚ -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <!-- INICIO -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            Inicio
+                        </a>
+                    </li>
+
+
+                    <!-- USUARIO -->
+                    <li class="nav-item dropdown">
+
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+
+                            Usuario
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF01-Disponibilidad/index.html">
+
+                                    Disponibilidad
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF02-Registrar reserva/index.html">
+
+                                    Registrar reserva
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF03-Estado de reserva/index.html">
+
+                                    Estado de reserva
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF04-Servicios adicionales/index.html">
+
+                                    Servicios adicionales
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF05-Cancelar reserva/index.html">
+
+                                    Cancelar reserva
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <!-- ADMINISTRACIÓN -->
+                    <li class="nav-item dropdown">
+
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+
+                            Administración
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF06-Gestionar reservas/index.html">
+
+                                    Gestionar reservas
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF07-Check-in/index.html">
+
+                                    Check-in
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF08-Gestionar limpieza/index.html">
+
+                                    Gestionar limpieza
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF09-Check-out y cobro/index.html">
+
+                                    Check-out y cobro
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="../RF10-Reportes/index.html">
+
+                                    Reportes
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="container text-center mt-5">
+
+    <h1>Tu descanso comienza frente al mar</h1>
+
+    <p class="lead">
+        Disfruta de una estadía inolvidable en Viña del Mar
+    </p>
+
+    <a
+        href="../RF01-Disponibilidad/index.html"
+        class="btn btn-primary">
+
+        Buscar habitación
+    </a>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="text-center mt-5">
+
+    <p>
+        &copy; 2026 Hotel Descanso Total · Viña del Mar, Chile
+    </p>
+
+</footer>
+
+
+<!-- Bootstrap JavaScript -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
 </html>
-
-    
