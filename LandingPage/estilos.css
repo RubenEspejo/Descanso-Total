@@ -2,35 +2,82 @@ body {
     margin: 0;
 }
 
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 15px 30px;
+
+/*NAVBAR*/
+
+.barra-personalizada {
     background-color: white;
+    padding: 10px 15px;
 }
 
 .logo {
     display: block;
-    width: 250px;
+    width: 230px;
     max-width: 100%;
     height: auto;
 }
 
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-}
-
-nav a {
-    text-decoration: none;
+.nav-link {
     color: #0b2d48;
-    font-family: Arial, sans-serif;
+    font-size: 18px;
 }
 
-nav a:hover {
+.nav-link:hover {
     color: #bd902f;
+}
+
+
+
+/*IMAGEN MENU*/
+
+.hero {
+    position: relative;
+    width: 100%;
+}
+
+.hero img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+/*TEXTO- IMAGEN*/
+
+.hero-texto {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+    text-align: center;
+    color: white;
+
+    text-shadow: 2px 2px 6px black;
+}
+
+.hero-texto h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.hero-texto p {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+}
+
+/*FOOTER*/
+
+footer {
+    padding: 20px;
+}
+
+footer p {
+    margin: 0;
+    color: #0b2d48;
 }
