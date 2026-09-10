@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar reserva</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f4f8; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; max-width: 400px; border: 1px solid #ccc; }
+        .badge { background-color: #00b074; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; }
+        .input-group { margin-bottom: 15px; }
+        input { padding: 8px; width: 60%; margin-top: 5px; }
+        button { background-color: #3b71ca; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .resultado { margin-top: 15px; padding: 10px; background-color: #f9f9f9; border-radius: 5px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Consultar reserva</h2>
+    
+    <div class="input-group">
+        <label for="codigo">Código de reserva:</label><br>
+        <input type="text" id="codigoInput" placeholder="Ej:0000">
+        <button onclick="buscarReserva()">Buscar</button>
+    </div>
+
+    <div id="resultado" class="resultado">
+        <h3>Reserva <span id="reservaCodigo"></span> <span class="badge">Confirmada</span></h3>
+        <p><strong>Entrada:</strong> <span id="entrada"></span></p>
+        <p> <strong>Salida:</strong> <span id="salida"></span></p>
+        <p> <strong>Habitación:</strong> <span id="habitacion"></span></p>
+        <p> <strong>Huésped:</strong> <span id="huesped"></span></p>
+        <p> <strong>Personas:</strong> <span id="personas"></span></p>
+    </div>
+</div>
+
+<script>
+    const reservasDB = {
+        "0000": {
+            entrada: "15/09/2026",
+            salida: "20/09/2025",
+            habitacion: "Estándar",
+            huesped: "Ana Torres",
+            personas: 2
+        }
+    };
+
+    function buscarReserva() {
+        const codigo = document.getElementById("codigoInput").value;
+        const resultadoDiv = document.getElementById("resultado");
+
+        if (reservasDB[codigo]) {
+            const datos = reservasDB[codigo];
+            document.getElementById("reservaCodigo").textContent = codigo;
+            document.getElementById("entrada").textContent = datos.entrada;
+            document.getElementById("salida").textContent = datos.salida;
+            document.getElementById("habitacion").textContent = datos.habitacion;
+            document.getElementById("huesped").textContent = datos.huesped;
+            document.getElementById("personas").textContent = datos.personas;
+            
+            resultadoDiv.style.display = "block";
+        } else {
+            alert("Reserva no encontrada. Prueba con: DT-2025-001");
+            resultadoDiv.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
