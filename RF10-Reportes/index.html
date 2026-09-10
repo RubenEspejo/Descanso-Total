@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reportes</title>
+    </head>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+
+    <body>
+
+        <header>
+            
+            <h1>Reportes</h1>
+            <p>Mostrar ocupación e ingresos de los datos de prueba</p>
+
+        </header>
+        <hr>
+        <main>
+            <div>
+            
+                <form>
+                    
+                    <label for="desde">Desde: </label>
+                    <input type="date" id="desde" name="desde">
+
+                </form>
+            
+            </div>
+            <br>
+            <div>
+                <form>
+                    <label for="hasta">Hasta:</label>
+                    <input type="date" id="hasta" name="hasta">
+                </form>
+                <br>
+                <button type="button" id="btnGenerar">Generar reporte</button>
+            </div>
+
+            <p id="resultado"></p>
+
+            
+
+        </main>
+        <hr>  
+        <footer>
+
+        </footer>
+
+        <script src="script.js" defer></script>
+
+    </body>
+
