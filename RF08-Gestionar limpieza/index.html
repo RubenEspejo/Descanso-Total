@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Limpieza</title>
+    </head>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+
+    <body>
+
+        <header>
+            
+            <h1>Limpieza</h1>
+            <p>Asignar limpieza y actualizar el estado de la habitación</p>
+
+        </header>
+        <hr>
+        <main>
+            <div>
+            
+                <form>
+                    
+                    <label for="habitacion">Habitación:  </label>
+                    <input type="text" id="habitacion" name="habitacion">
+
+                    <p id="resultado"></p>
+                </form>
+            
+            </div>
+            <div>
+                <form>
+
+                    <label for="persona">Persona asignada: </label>
+                    <select id="persona" name="persona">
+                        <option value=""> </option>
+                        <option value="Benjamín Romero">Benjamín Romero</option>
+                        <option value="Camila Castillo">Camila Castillo</option>
+                        <option value="Rubén Espejo">Rubén Espejo</option>
+                    </select>
+                    <button type="button" id="btnAsignar">Asignar</button>
+                   
+                    <p id="resultado2"></p>
+                </form>
+
+            </div>
+
+            <div>
+                <form>
+
+                    <label for="estado">Estado habitacion</label>
+                    <p id="estado">Pendiente</p>
+                    <button type="button" id="btnCompletar" disabled>Marcar como completado</button>
+                    <p id="resultado3"></p>
+                </form>
+            </div>
+        </main>
+        <hr>  
+        <footer>
+
+        </footer>
+
+        <script src="script.js" defer></script>
+
+    </body>
+
+
+
+
+
+
+
+
+</html>
