@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Check-in</title>
+        <title>Hotel Descanso Total | Check-in</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="estilos.css">
     </head>
 
     <style>
@@ -15,50 +17,61 @@
     <body>
 
         <header>
-            
-            <h1>Check-in</h1>
-            <p>Validar reserva y habitacion lista; registrar registro</p>
-
+            <nav class="navbar navbar-expand bg-light">
+                <div class="container-fluid justify-content-between">
+                    <a class="navbar-brand" href="../LandingPage/index.html">
+                        <img src="../LandingPage/images/logo.png" alt="Logo hotel Descanso Total" class="logo">
+                    </a>
+                    <a class="btn btn-outline-danger" href="../RF06-Gestionar reservas/index.html">
+                        Volver a la pagina anterior
+                    </a>
+                </div>
+            </nav>
         </header>
 
         <hr>
 
-        <main>
-            <div>
-            
-                <form>
+        <main class="container py-4">
 
-                    
-                    <label for="codigo">Validar codigo: </label>
-                    <input type="text" id="codigo" name="codigo">
-                    <button type="button" id="btnValidar">OK</button>
+            <h1>Check-in</h1>
+            <p class="text-center">Validar reserva y habitacion lista; registrar registro</p>
+            <br>
+            <div class="col-12 col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <form>
+                        <label for="codigo">Validar codigo: </label>
+                        <input type="text" id="codigo" name="codigo">
+                        <button type="button" id="btnValidar">OK</button>
 
-                    <p id="resultado"></p>
-                </form>
-            
+                        <p id="resultado"></p>
+                        </form>
+                    </div>
+                </div>   
             </div>
             <br>
 
-            <div>
-                <form>
+            <div class="col-12 col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card body">
+                        <form>
 
-                    <label for="registro">Codigo de reserva:</label>
-                    <input type="text" id="registro" name="registro">
-                    <button type="button" id="btnRegistrar">OK</button>
+                        <label for="registro">Codigo de reserva:</label>
+                        <input type="text" id="registro" name="registro">
+                        <button type="button" id="btnRegistrar">OK</button>
 
-                    <p id="resultado2"></p>
-                </form>
-
+                        <p id="resultado2"></p>
+                    </form>
+                    </div>
+                </div>
             </div>
            
-
-
         </main>
 
         <hr>
         
-        <footer>
-
+        <footer class="text-center py-3">
+            <p>&copy; 2026 Hotel Descanso Total · Viña del Mar, Chile</p>
         </footer>
 
         <script src="script.js" defer></script>
