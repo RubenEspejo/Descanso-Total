@@ -1,0 +1,22 @@
+/*NAVBAR*/
+
+.barra-personalizada {
+    background-color: white;
+    padding: 10px 15px;
+}
+
+.logo {
+    display: block;
+    width: 230px;
+    max-width: 100%;
+    height: auto;
+}
+
+.nav-link {
+    color: #0b2d48;
+    font-size: 18px;
+}
+
+.nav-link:hover {
+    color: #bd902f;
+}
