@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calcularTotales() {
         let total = 0;
+
         selects.forEach(select => {
             const cantidad = Number(select.value);
             const precio = Number(select.getAttribute('data-price'));
+            
             const subtotal = cantidad * precio;
 
             const fila = select.closest('tr');
