@@ -37,31 +37,50 @@
             <p class="text-center">Asignar limpieza y actualizar el estado de la habitacion</p>
             <br>
             
-            <div>
-            
-                <form>
+            <div class="row justify-content-center g-4">
+                <div class="col-12 col -md-4">
+                    <div class="card-body">
+                        <h2 class="h5 card-title">Habitacion</h2>
+
+                    <form>
                     
                     <label for="habitacion">Habitación:  </label>
-                    <input type="text" id="habitacion" name="habitacion">
+                    <input type="text" id="habitacion" name="habitacion" class="form-control mb-3">
 
-                    <p id="resultado"></p>
-                </form>
+                    <p id="resultado" class="mt-3 mb-0"></p>
+                    </form>
+
+
+                    </div>
+
+                    
+
+                </div>
+            
             
             </div>
-            <div>
-                <form>
 
-                    <label for="persona">Persona asignada: </label>
-                    <select id="persona" name="persona">
-                        <option value=""> </option>
-                        <option value="Benjamín Romero">Benjamín Romero</option>
-                        <option value="Camila Castillo">Camila Castillo</option>
-                        <option value="Rubén Espejo">Rubén Espejo</option>
-                    </select>
-                    <button type="button" id="btnAsignar">Asignar</button>
+            <div class="col-12 col -md-4">
+                <div class="card shadow-sn h-100">
+                    <div class="card-body">
+                        <form>
+
+                        <label for="persona" class="form-label">Persona asignada: </label>
+                        <select id="persona" name="persona">
+                            <option value=""> </option>
+                            <option value="Benjamín Romero">Benjamín Romero</option>
+                            <option value="Camila Castillo">Camila Castillo</option>
+                            <option value="Rubén Espejo">Rubén Espejo</option>
+                        </select>
+                        <button type="button" id="btnAsignar">Asignar</button>
                    
-                    <p id="resultado2"></p>
+                        <p id="resultado2"></p>
                 </form>
+
+
+                    </div>
+                </div>
+                
 
             </div>
 
