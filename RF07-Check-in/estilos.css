@@ -10,7 +10,7 @@
     --dt-gold: #bd902f;
 }
 
-.nav-brand {
+.navbar-brand {
     color: var(--dt-navy);
     font-weight: 700;
 }
@@ -27,6 +27,7 @@
 h1 {
     color: var(--dt-navy);
     font-weight: 700;
+    text-align: center;
 }
 
 .card {
