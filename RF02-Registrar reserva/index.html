@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="utf-8"/>
+        <title>Reserva tu estadía</title>
+        <link rel="stylesheet" href="estilos.css">
+                <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+                rel="stylesheet">
+            <script src="script.js" defer></script>
+    </head>
+    <body>
+
+        <header>        
+        <!-- NAVBAR -->
+        <nav class="navbar barra-personalizada">
+            <div class="container-fluid">
+
+                <!-- LOGO -->
+                <a class="navbar-brand m-0 p-0" href="index.html">
+                    <img
+                        src="../LandingPage/images/logo.png"
+                        alt="Logo Hotel Descanso Total"
+                        class="logo">
+                </a>
+
+                <!-- MENÚ -->
+                <ul class="navbar-nav flex-row flex-grow-1 justify-content-around align-items-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../LandingPage/index.html">
+                            Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                        href="../../RF01-Disponibilidad/HTML/index.html">
+                            Disponibilidad habitaciones 
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../../RF02-Registrar reserva/index.html">
+                            Reservar
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../../RF03-Estado de reserva/index.html">
+                            Mi reserva
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../../RF04-Servicios adicionales/index.html">
+                            Servicios
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../../Nosotros/index.html">
+                            Nosotros
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../Contacto/index.html">
+                            Contacto
+                        </a>
+                    </li>
+
+
+
+                </ul>
+
+            </div>
+        </nav></header>
+                
+
+
+    <main class="container">
+    <h1>Reserva tu estadía</h1>
+    <p>
+        Completa tus datos y selecciona las características de tu estadía
+        en Hotel Descanso Total.
+    </p>
+
+    <form id="reservaForm" class="row g-3">
+    <h2>Datos de Contacto</h2>
+    <div class="col-md-6">
+        <label for="inputNombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="inputNombre" placeholder="Nombre">
+    </div>
+        <div class="col-md-6">
+        <label for="inputApellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="inputApellido" placeholder="Apellido">
+    </div>
+    <div class="col-md-6">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputEmail" placeholder="correo@ejemplo.com">
+    </div>
+    <div class="col-md-6">
+        <label for="inputTelefono" class="form-label">Teléfono</label>
+        <input type="text" class="form-control" id="inputTelefono" placeholder="912345678">
+    </div>
+        <div class="col-md-6">
+        <label for="inputRut" class="form-label">Rut</label>
+        <input type="text" class="form-control" id="inputRut" placeholder="20123456-7">
+    </div>
+    <h2>Datos de estadia</h2>
+    <div class="col-md-6">
+        <label for="entrada" class="form-label">Fecha de entrada</label>
+        <input type="date" id="entrada" name="fechaEntrada" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label for="salida" class="form-label">Fecha de salida</label>
+        <input type="date" id="salida" name="fechaSalida" class="form-control">
+    </div>
+        <div class="col-md-6">
+        <label for="inputHuespedes" class="form-label">Cantidad de huéspedes</label>
+        <input type="number" class="form-control" id="inputHuespedes" min="1" placeholder="Ej: 2">
+    </div>
+
+    <div class="col-md-4">
+        <label for="inputHabitacion" class="form-label">Seleccionar habitación</label>
+
+        <select id="inputHabitacion" class="form-select">
+        <option value="" selected>Seleccione habitación</option>
+        <option value="simple">Habitación Simple</option>
+        <option value="doble">Habitación Doble</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+            Acepto los términos y condiciones
+        </label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Solicitar Reserva</button>
+    </div>
+    </form>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Hotel Descanso Total · Viña del Mar, Chile</p>
+    </footer>
+
+</body>
+</html>
+
+    
