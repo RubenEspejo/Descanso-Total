@@ -10,77 +10,128 @@
             <script src="script.js" defer></script>
     </head>
     <body>
+ 
+       <header>
 
-        <header>        
-        <!-- NAVBAR -->
-        <nav class="navbar barra-personalizada">
-            <div class="container-fluid">
+    <!-- NAVBAR -->
+    <nav class="navbar barra-personalizada">
 
-                <!-- LOGO -->
-                <a class="navbar-brand m-0 p-0" href="index.html">
-                    <img
-                        src="../LandingPage/images/logo.png"
-                        alt="Logo Hotel Descanso Total"
-                        class="logo">
-                </a>
+        <div class="container-fluid">
 
-                <!-- MENÚ -->
-                <ul class="navbar-nav flex-row flex-grow-1 justify-content-around align-items-center">
+            <!-- LOGO -->
+            <a class="navbar-brand m-0 p-0"
+               href="../LandingPage/index.html">
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="../LandingPage/index.html">
-                            Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                        href="../RF01-Disponibilidad/HTML/index.html">
-                            Disponibilidad habitaciones 
-                        </a>
-                    </li>
+                <img
+                    src="../LandingPage/images/logo.png"
+                    alt="Logo Hotel Descanso Total"
+                    class="logo">
 
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="../RF02-Registrar reserva/index.html">
-                            Reservar
-                        </a>
-                    </li>
+            </a>
 
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="../RF03-Estado de reserva/index.html">
-                            Mi reserva
-                        </a>
-                    </li>
+            <!-- MENÚ -->
+            <ul class="navbar-nav flex-row flex-grow-1 justify-content-around align-items-center">
 
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="../RF04-Servicios adicionales/index.html">
-                            Servicios
-                        </a>
-                    </li>
+                <!-- INICIO -->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../LandingPage/index.html">
+                        Inicio
+                    </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="../Nosotros/index.html">
-                            Nosotros
-                        </a>
-                    </li>
+                <!-- HABITACIONES -->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../RF01-Disponibilidad/index.html">
+                        Habitaciones
+                    </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="../Contacto/index.html">
-                            Contacto
-                        </a>
-                    </li>
+                <!-- RESERVAR -->
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="index.html">
+                        Reservar
+                    </a>
+                </li>
 
+                <!-- MI RESERVA -->
+                <li class="nav-item dropdown">
 
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
 
-                </ul>
+                        Mi reserva
 
-            </div>
-        </nav></header>
-                
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="../RF03-Estado de reserva/index.html">
+                                Consultar estado
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="../RF04-Servicios adicionales/index.html">
+                                Servicios adicionales
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="../RF05-Cancelar reserva/index.html">
+                                Cancelar reserva
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- NOSOTROS -->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../LandingPage/nosotros.html">
+                        Nosotros
+                    </a>
+                </li>
+
+                <!-- CONTACTO -->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../LandingPage/contacto.html">
+                        Contacto
+                    </a>
+                </li>
+
+                <!-- PORTAL PRIVADO -->
+                <li class="nav-item">
+
+                    <a class="nav-link portal-privado"
+                       href="../RF06-Gestionar reservas/index.html">
+
+                        <i class="bi bi-lock-fill"></i>
+                        Portal privado
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</header>
 
 
     <main class="container">
