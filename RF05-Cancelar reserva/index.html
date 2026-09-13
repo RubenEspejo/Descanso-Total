@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="utf-8"/>
+        <title>Cancelar Reserva</title>
+        <link rel="stylesheet" href="estilos.css">
+                <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+                rel="stylesheet">
+            <script src="script.js" defer></script>
+    </head>
+    <body>
+
+        <header>        
+        <!-- NAVBAR -->
+        <nav class="navbar barra-personalizada">
+            <div class="container-fluid">
+
+                <!-- LOGO -->
+                <a class="navbar-brand m-0 p-0" href="index.html">
+                    <img
+                        src="../LandingPage/images/logo.png"
+                        alt="Logo Hotel Descanso Total"
+                        class="logo">
+                </a>
+
+                <!-- MENÚ -->
+                <ul class="navbar-nav flex-row flex-grow-1 justify-content-around align-items-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../LandingPage/index.html">
+                            Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                        href="../RF01-Disponibilidad/HTML/index.html">
+                            Disponibilidad habitaciones 
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../RF02-Registrar reserva/index.html">
+                            Reservar
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../RF03-Estado de reserva/index.html">
+                            Mi reserva
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../RF04-Servicios adicionales/index.html">
+                            Servicios
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../Nosotros/index.html">
+                            Nosotros
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="../Contacto/index.html">
+                            Contacto
+                        </a>
+                    </li>
+
+
+
+                </ul>
+
+            </div>
+        </nav></header>
+                
+
+
+    <main class="container">
+    <h1>Cancelar Reserva</h1>
+    <p>
+        Ingresa los datos de tu reserva para revisar su estado y solicitar la cancelación.
+    </p>
+
+    <form id="CancelarForm" class="row g-3">
+    
+        <div class="col-md-6">
+        <label for="inputCodigo" class="form-label">Código de Reserva</label>
+        <input type="text" class="form-control" id="inputCodigo" placeholder="Ej: DT-1025">
+    </div>
+    <div class="col-md-6">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputEmail" placeholder="correo@ejemplo.com">
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">
+            Buscar reserva
+        </button>
+    </div>
+    </form>
+    <section id="detalleReserva" class="mt-5">
+    </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Hotel Descanso Total · Viña del Mar, Chile</p>
+    </footer>
+
+</body>
+</html>
