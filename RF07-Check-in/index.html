@@ -55,18 +55,24 @@
 
             <div class="col-12 col-md-6">
                 <div class="card shadow-sm h-100">
-                    <div class="card body">
-                        <form>
+                    <div class="card-body">
+                        <h2 class="h5 card-title">Registrar check-in</h2>
 
-                        <label for="registro">Codigo de reserva:</label>
-                        <input type="text" id="registro" name="registro">
-                        <button type="button" id="btnRegistrar">OK</button>
-
-                        <p id="resultado2"></p>
-                    </form>
+                        <form class="row g-3">
+                            <div class="col-md-8">
+                                <label for="registro" class="form-label">Código de reserva</label>
+                                <input type="text" id="registro" name="registro" class="form-control" placeholder="Código de reserva">
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button type="button" id="btnRegistrar" class="btn btn-primary w-100">OK</button>
+                            </div>
+                        </form>
+                        <p id="resultado2" class="mt-2 mb-0"></p>
                     </div>
                 </div>
             </div>
+
+        </div>
            
         </main>
 
