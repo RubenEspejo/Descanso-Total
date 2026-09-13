@@ -31,34 +31,41 @@
             <h1>Reportes</h1>
             <p class="text-center">Mostrar ocupación e ingresos de los datos de prueba</p>
             <br>
-            <div>
-            
-                <form>
-                    
-                    <label for="desde">Desde: </label>
-                    <input type="date" id="desde" name="desde">
 
-                </form>
-            
-            </div>
-            <br>
-            <div>
-                <form>
-                    <label for="hasta">Hasta:</label>
-                    <input type="date" id="hasta" name="hasta">
-                </form>
-                <br>
-                <button type="button" id="btnGenerar">Generar reporte</button>
+            <div class="row justify-content-center g-4">
+
+            <div class="col-12 col-md-8">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h2 class="h5 card-title">Generar reporte</h2>
+
+                        <form class="row g-3">
+                            <div class="col-md-5">
+                                <label for="desde" class="form-label">Desde</label>
+                                <input type="date" id="desde" name="desde" class="form-control">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="hasta" class="form-label">Hasta</label>
+                                <input type="date" id="hasta" name="hasta" class="form-control">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="button" id="btnGenerar" class="btn btn-primary w-100">Generar</button>
+                            </div>
+                        </form>
+
+                        <p id="resultado" class="mt-3 mb-0"></p>
+                    </div>
+                </div>
             </div>
 
-            <p id="resultado"></p>
+        </div>
 
             
 
         </main>
         <hr>  
-        <footer>
-
+         <footer class="text-center py-3">
+            <p>&copy; 2026 Hotel Descanso Total · Viña del Mar, Chile</p>
         </footer>
 
         <script src="script.js" defer></script>
