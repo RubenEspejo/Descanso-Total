@@ -190,16 +190,55 @@ formulario.addEventListener("submit", function (event) {
 });
 
 function estaDisponible(habitacion, fechaEntrada, fechaSalida) {
-    for (const reserva of habitacion.reservas) {
+    let reservas;
+
+    try {
+        reservas = JSON.parse(localStorage.getItem("reservas") || "[]");
+
         if (
-            fechaEntrada < reserva.salida &&
-            fechaSalida > reserva.entrada
+            !Array.isArray(reservas) ||
+            reservas.some(function (reserva) {
+                return (
+                    !reserva ||
+                    typeof reserva.habitacion !== "string" ||
+                    typeof reserva.estado !== "string" ||
+                    !Number.isFinite(Date.parse(reserva.entrada)) ||
+                    !Number.isFinite(Date.parse(reserva.salida)) ||
+                    reserva.salida <= reserva.entrada
+                );
+            })
         ) {
-            return false;
+            throw new Error("Datos inválidos");
         }
+    } catch (error) {
+        return false;
     }
 
-    return true;
+    const cruzaReservaDePrueba = habitacion.reservas.some(function (reserva) {
+        return (
+            fechaEntrada < reserva.salida &&
+            fechaSalida > reserva.entrada
+        );
+    });
+
+    const cruzaReservaGuardada = reservas.some(function (reserva) {
+        const mismaHabitacion =
+            reserva.codigoHabitacion === habitacion.codigo ||
+            reserva.habitacion === habitacion.nombre;
+
+        const bloqueaDisponibilidad =
+            reserva.estado !== "Cancelada" &&
+            reserva.estado !== "Check-out";
+
+        return (
+            mismaHabitacion &&
+            bloqueaDisponibilidad &&
+            fechaEntrada < reserva.salida &&
+            fechaSalida > reserva.entrada
+        );
+    });
+
+    return !cruzaReservaDePrueba && !cruzaReservaGuardada;
 }
 
 function mostrarMensaje(texto, esError = false) {

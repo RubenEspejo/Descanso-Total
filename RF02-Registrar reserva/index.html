@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html> 
+<html lang="es"> 
     <head>
         <meta charset="utf-8"/>
         <title>Reserva tu estadia</title>
@@ -130,7 +130,7 @@
         en Hotel Descanso Total.
     </p>
 
-    <form id="reservaForm" class="row g-3">
+    <form id="reservaForm" class="row g-3"  novalidate>
     <h2>Datos de Contacto</h2>
     <div class="col-md-6">
         <label for="inputNombre" class="form-label">Nombre</label>
@@ -148,10 +148,7 @@
         <label for="inputTelefono" class="form-label">Teléfono</label>
         <input type="text" class="form-control" id="inputTelefono" placeholder="912345678">
     </div>
-        <div class="col-md-6">
-        <label for="inputRut" class="form-label">Rut</label>
-        <input type="text" class="form-control" id="inputRut" placeholder="20123456-7">
-    </div>
+    
     <h2>Datos de estadia</h2>
     <div class="col-md-6">
         <label for="entrada" class="form-label">Fecha de entrada</label>
@@ -170,28 +167,14 @@
         <label for="inputHabitacion" class="form-label">Seleccionar habitación</label>
 
     <select id="inputHabitacion" class="form-select">
-
-        <option value="" selected>
-            Seleccione habitación
-        </option>
-
-        <option value="simple">
-            Habitación Simple
-        </option>
-
-        <option value="doble">
-            Habitación Doble
-        </option>
-
-        <option value="familiar">
-            Habitación Familiar
-        </option>
-
-        <option value="suite">
-            Suite
-        </option>
-
+    <option value="">Seleccione habitación</option>
+    <option value="HAB001">Habitación Simple</option>
+    <option value="HAB002">Habitación Doble</option>
+    <option value="HAB003">Habitación Superior</option>
+    <option value="HAB004">Suite Ejecutiva</option>
+    <option value="HAB005">Suite Presidencial</option>
     </select>
+    
     </div>
     <div class="col-12">
         <div class="form-check">
