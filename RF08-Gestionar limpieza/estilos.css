@@ -1,52 +1,60 @@
-.logo{
+:root {
+    --dt-navy: #0b2d48;
+    --dt-gold: #bd902f;
+}
+
+body {
+    margin: 0;
+}
+
+.barra-personalizada {
+    background-color: white;
+    padding: 10px 15px;
+}
+
+.logo {
     display: block;
     width: 230px;
     max-width: 100%;
     height: auto;
 }
 
-:root{
-    --dt-navy: black;
-    --dt-gold: #bd902f;
-}
-
-.navbar-brand{
+.navbar-brand {
     color: var(--dt-navy);
     font-weight: 700;
 }
 
-.nav-link{
+.nav-link {
     color: var(--dt-navy);
 }
 
 .nav-link:hover,
-.nav-link.active{
+.nav-link.active {
     color: var(--dt-gold);
 }
 
-h1{
+h1 {
     text-align: center;
     color: var(--dt-navy);
     font-weight: 700;
 }
 
-.card{
+.card {
     border: none;
     border-radius: 0.5rem;
 }
 
-.card-title{
+.card-title {
     color: var(--dt-navy);
 }
 
-.btn-primary{
+.btn-primary {
     background-color: var(--dt-navy);
     border-color: var(--dt-navy);
 }
 
 .btn-primary:hover,
-.btn-primary:focus{
+.btn-primary:focus {
     background-color: black;
     border-color: black;
 }
-

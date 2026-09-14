@@ -1,0 +1,25 @@
+.logo {
+    display: block;
+    width: 230px;
+    max-width: 100%;
+    height: auto;
+}
+
+:root {
+    --dt-navy: #0b2d48;
+    --dt-gold: #bd902f;
+}
+
+.navbar-brand {
+    color: var(--dt-navy);
+    font-weight: 700;
+}
+
+.nav-link {
+    color: var(--dt-navy);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--dt-gold);
+}
