@@ -2,11 +2,13 @@
 <html> 
     <head>
         <meta charset="utf-8"/>
-        <title>Reserva tu estadía</title>
+        <title>Reserva tu estadia</title>
         <link rel="stylesheet" href="estilos.css">
                 <link
                 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
                 rel="stylesheet">
+                <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
             <script src="script.js" defer></script>
     </head>
     <body>
@@ -180,11 +182,29 @@
     <div class="col-md-4">
         <label for="inputHabitacion" class="form-label">Seleccionar habitación</label>
 
-        <select id="inputHabitacion" class="form-select">
-        <option value="" selected>Seleccione habitación</option>
-        <option value="simple">Habitación Simple</option>
-        <option value="doble">Habitación Doble</option>
-        </select>
+    <select id="inputHabitacion" class="form-select">
+
+        <option value="" selected>
+            Seleccione habitación
+        </option>
+
+        <option value="simple">
+            Habitación Simple
+        </option>
+
+        <option value="doble">
+            Habitación Doble
+        </option>
+
+        <option value="familiar">
+            Habitación Familiar
+        </option>
+
+        <option value="suite">
+            Suite
+        </option>
+
+    </select>
     </div>
     <div class="col-12">
         <div class="form-check">
@@ -198,12 +218,22 @@
         <button type="submit" class="btn btn-primary">Solicitar Reserva</button>
     </div>
     </form>
+    <p id="mensajeForm" class="mt-4"></p>
+
+    <section id="resumenReserva" class="mt-4" style="display: none;">
+
+        <h2>Resumen de la reserva</h2>
+
+        <div id="detalleResumen"></div>
+
+    </section>
 
     </main>
 
     <footer>
         <p>&copy; 2026 Hotel Descanso Total · Viña del Mar, Chile</p>
     </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
