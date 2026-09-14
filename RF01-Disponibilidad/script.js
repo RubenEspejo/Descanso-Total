@@ -1,8 +1,9 @@
 const habitaciones = [
     {
+        codigo: "HAB001",
         nombre: "Habitación Simple",
         capacidad: 1,
-        precio: 55000,
+        precio: 65000,
         reservas: [
             {
                 entrada: "2026-09-18",
@@ -11,9 +12,10 @@ const habitaciones = [
         ]
     },
     {
+        codigo: "HAB002",
         nombre: "Habitación Doble",
         capacidad: 2,
-        precio: 75000,
+        precio: 85000,
         reservas: [
             {
                 entrada: "2026-09-22",
@@ -22,21 +24,30 @@ const habitaciones = [
         ]
     },
     {
-        nombre: "Habitación Familiar",
-        capacidad: 4,
-        precio: 105000,
+        codigo: "HAB003",
+        nombre: "Habitación Superior",
+        capacidad: 2,
+        precio: 120000,
         reservas: []
     },
     {
-        nombre: "Suite",
-        capacidad: 5,
-        precio: 140000,
+        codigo: "HAB004",
+        nombre: "Suite Ejecutiva",
+        capacidad: 3,
+        precio: 180000,
         reservas: [
             {
                 entrada: "2026-09-28",
                 salida: "2026-10-02"
             }
         ]
+    },
+    {
+        codigo: "HAB005",
+        nombre: "Suite Presidencial",
+        capacidad: 4,
+        precio: 350000,
+        reservas: []
     }
 ];
 
@@ -44,123 +55,145 @@ const formulario = document.getElementById("formDisponibilidad");
 const entrada = document.getElementById("entrada");
 const salida = document.getElementById("salida");
 const personas = document.getElementById("personas");
-
 const resultados = document.getElementById("resultados");
 const listaHabitaciones = document.getElementById("listaHabitaciones");
 const mensaje = document.getElementById("mensajeSinResultados");
 
 resultados.style.display = "none";
+mensaje.setAttribute("aria-live", "polite");
 
-formulario.addEventListener("submit", function(event) {
-
+formulario.addEventListener("submit", function (event) {
     event.preventDefault();
+    limpiarResultados();
 
     const fechaEntrada = entrada.value;
     const fechaSalida = salida.value;
-    const cantidadPersonas = personas.value;
-
-    listaHabitaciones.innerHTML = "";
-    mensaje.textContent = "";
-    resultados.style.display = "none";
+    const cantidadPersonas = Number(personas.value);
 
     if (
         fechaEntrada === "" ||
         fechaSalida === "" ||
-        cantidadPersonas === ""
+        personas.value === ""
     ) {
-        mensaje.textContent =
-            "Debes ingresar ambas fechas y la cantidad de personas.";
-
-        resultados.style.display = "block";
+        mostrarMensaje(
+            "Debes ingresar ambas fechas y la cantidad de personas.",
+            true
+        );
         return;
     }
 
     if (fechaSalida <= fechaEntrada) {
-        mensaje.textContent =
-            "La fecha de salida debe ser posterior a la fecha de entrada.";
-
-        resultados.style.display = "block";
+        mostrarMensaje(
+            "La fecha de salida debe ser posterior a la fecha de entrada.",
+            true
+        );
         return;
     }
 
-    const cantidad = Number(cantidadPersonas);
+    if (
+        !Number.isInteger(cantidadPersonas) ||
+        cantidadPersonas < 1
+    ) {
+        mostrarMensaje(
+            "La cantidad de personas debe ser un número entero mayor que cero.",
+            true
+        );
+        return;
+    }
 
-    const habitacionesDisponibles = habitaciones.filter(function(habitacion) {
-
-        const capacidadCorrecta =
-            habitacion.capacidad >= cantidad;
-
-        const disponible =
-            estaDisponible(habitacion, fechaEntrada, fechaSalida);
-
-        return capacidadCorrecta && disponible;
+    const disponibles = habitaciones.filter(function (habitacion) {
+        return (
+            habitacion.capacidad >= cantidadPersonas &&
+            estaDisponible(habitacion, fechaEntrada, fechaSalida)
+        );
     });
 
-    resultados.style.display = "block";
-
-    if (habitacionesDisponibles.length === 0) {
-        mensaje.textContent =
-            "No existen habitaciones disponibles para las fechas y cantidad de personas seleccionadas.";
-
+    if (disponibles.length === 0) {
+        mostrarMensaje(
+            "No existen habitaciones disponibles para las fechas " +
+            "y cantidad de personas seleccionadas."
+        );
         return;
     }
 
-    mensaje.textContent =
-        "Se encontraron " +
-        habitacionesDisponibles.length +
-        " habitación(es) disponible(s).";
+    mostrarMensaje(
+        "Se encontraron " + disponibles.length +
+        " habitación(es) disponible(s)."
+    );
 
-    habitacionesDisponibles.forEach(function(habitacion) {
+    disponibles.forEach(function (habitacion) {
+        const columna = document.createElement("div");
+        columna.className = "col-md-4";
 
-        listaHabitaciones.innerHTML += `
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body">
+        columna.innerHTML = `
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">${habitacion.nombre}</h3>
 
-                        <h3 class="card-title">
-                            ${habitacion.nombre}
-                        </h3>
+                    <p>
+                        <strong>Código:</strong>
+                        ${habitacion.codigo}
+                    </p>
 
-                        <p>
-                            <strong>Capacidad:</strong>
-                            ${habitacion.capacidad} huésped(es)
-                        </p>
+                    <p>
+                        <strong>Capacidad:</strong>
+                        ${habitacion.capacidad} huésped(es)
+                    </p>
 
-                        <p>
-                            <strong>Precio por noche:</strong>
-                            $${habitacion.precio.toLocaleString("es-CL")}
-                        </p>
+                    <p>
+                        <strong>Precio por noche:</strong>
+                        $${habitacion.precio.toLocaleString("es-CL")} CLP
+                    </p>
 
-                        <p class="text-success">
-                            Disponible para las fechas seleccionadas
-                        </p>
+                    <p class="text-success">
+                        Disponible para las fechas seleccionadas
+                    </p>
 
-                        <a
-                            href="../RF02-Registrar reserva/index.html"
-                            class="btn btn-primary">
-                            Seleccionar habitación
-                        </a>
-
-                    </div>
+                    <button type="button" class="btn btn-primary">
+                        Seleccionar habitación
+                    </button>
                 </div>
             </div>
         `;
+
+        const boton = columna.querySelector("button");
+
+        boton.addEventListener("click", function () {
+            const seleccion = {
+                codigoHabitacion: habitacion.codigo,
+                nombreHabitacion: habitacion.nombre,
+                precioPorNoche: habitacion.precio,
+                entrada: fechaEntrada,
+                salida: fechaSalida,
+                personas: cantidadPersonas
+            };
+
+            try {
+                localStorage.setItem(
+                    "seleccionReserva",
+                    JSON.stringify(seleccion)
+                );
+
+                window.location.href =
+                    "../RF02-Registrar reserva/index.html";
+            } catch (error) {
+                mostrarMensaje(
+                    "No se pudo guardar la selección. " +
+                    "Comprueba que el almacenamiento del navegador esté habilitado.",
+                    true
+                );
+            }
+        });
+
+        listaHabitaciones.appendChild(columna);
     });
 });
 
 function estaDisponible(habitacion, fechaEntrada, fechaSalida) {
-
-    const nuevaEntrada = new Date(fechaEntrada);
-    const nuevaSalida = new Date(fechaSalida);
-
-    for (let reserva of habitacion.reservas) {
-
-        const entradaReserva = new Date(reserva.entrada);
-        const salidaReserva = new Date(reserva.salida);
-
+    for (const reserva of habitacion.reservas) {
         if (
-            nuevaEntrada < salidaReserva &&
-            nuevaSalida > entradaReserva
+            fechaEntrada < reserva.salida &&
+            fechaSalida > reserva.entrada
         ) {
             return false;
         }
@@ -168,3 +201,21 @@ function estaDisponible(habitacion, fechaEntrada, fechaSalida) {
 
     return true;
 }
+
+function mostrarMensaje(texto, esError = false) {
+    mensaje.textContent = texto;
+    mensaje.classList.toggle("text-danger", esError);
+    resultados.style.display = "block";
+}
+
+function limpiarResultados() {
+    listaHabitaciones.innerHTML = "";
+    mensaje.textContent = "";
+    mensaje.classList.remove("text-danger");
+    resultados.style.display = "none";
+}
+
+[entrada, salida, personas].forEach(function (campo) {
+    campo.addEventListener("input", limpiarResultados);
+    campo.addEventListener("change", limpiarResultados);
+});
