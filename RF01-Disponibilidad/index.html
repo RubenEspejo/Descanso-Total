@@ -28,143 +28,113 @@
 
     <header>
 
-        <!-- NAVBAR -->
-        <nav class="navbar barra-personalizada">
+    <nav class="navbar barra-personalizada">
 
-            <div class="container-fluid">
+        <div class="container-fluid">
 
-                <!-- LOGO -->
-                <a class="navbar-brand m-0 p-0"
-                   href="../LandingPage/index.html">
+            <a class="navbar-brand m-0 p-0"
+               href="../LandingPage/index.html">
 
-                    <img
-                        src="../LandingPage/images/logo.png"
-                        alt="Logo Hotel Descanso Total"
-                        class="logo">
+                <img
+                    src="../LandingPage/images/logo.png"
+                    alt="Logo Hotel Descanso Total"
+                    class="logo">
 
-                </a>
+            </a>
 
+            <ul class="navbar-nav flex-row flex-grow-1 justify-content-around align-items-center">
 
-                <!-- MENÚ -->
-                <ul class="navbar-nav flex-row flex-grow-1 justify-content-around align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../LandingPage/index.html">
+                        Inicio
+                    </a>
+                </li>
 
-                    <!-- INICIO -->
-                    <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="../RF01-Disponibilidad/index.html">
+                        Habitaciones
+                    </a>
+                </li>
 
-                        <a class="nav-link"
-                           href="../LandingPage/index.html">
-                            Inicio
-                        </a>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../RF02-Registrar reserva/index.html">
+                        Reservar
+                    </a>
+                </li>
 
-                    </li>
+                <li class="nav-item dropdown">
 
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Mi reserva
+                    </a>
 
-                    <!-- HABITACIONES -->
-                    <li class="nav-item">
+                    <ul class="dropdown-menu">
 
-                        <a class="nav-link active"
-                           href="index.html">
-                            Habitaciones
-                        </a>
+                        <li>
+                            <a class="dropdown-item"
+                               href="../RF03-Estado de reserva/index.html">
+                                Consultar estado
+                            </a>
+                        </li>
 
-                    </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="../RF04-Servicios adicionales/index.html">
+                                Servicios adicionales
+                            </a>
+                        </li>
 
+                        <li>
+                            <a class="dropdown-item"
+                               href="../RF05-Cancelar reserva/index.html">
+                                Cancelar reserva
+                            </a>
+                        </li>
 
-                    <!-- RESERVAR -->
-                    <li class="nav-item">
+                    </ul>
 
-                        <a class="nav-link"
-                           href="../RF02-Registrar reserva/index.html">
-                            Reservar
-                        </a>
+                </li>
 
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../LandingPage/nosotros.html">
+                        Nosotros
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="../LandingPage/contacto.html">
+                        Contacto
+                    </a>
+                </li>
 
-                    <!-- MI RESERVA -->
-                    <li class="nav-item dropdown">
+                <li class="nav-item">
 
-                        <a class="nav-link dropdown-toggle"
-                           href="#"
-                           role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
+                    <a class="nav-link portal-privado"
+                       href="../RF06-Gestionar reservas/index.html">
 
-                            Mi reserva
+                        <i class="bi bi-lock-fill"></i>
+                        Portal privado
 
-                        </a>
+                    </a>
 
-                        <ul class="dropdown-menu">
+                </li>
 
-                            <li>
-                                <a class="dropdown-item"
-                                   href="../RF03-Estado de reserva/index.html">
-                                    Consultar estado
-                                </a>
-                            </li>
+            </ul>
 
-                            <li>
-                                <a class="dropdown-item"
-                                   href="../RF04-Servicios adicionales/index.html">
-                                    Servicios adicionales
-                                </a>
-                            </li>
+        </div>
 
-                            <li>
-                                <a class="dropdown-item"
-                                   href="../RF05-Cancelar reserva/index.html">
-                                    Cancelar reserva
-                                </a>
-                            </li>
+    </nav>
 
-                        </ul>
-
-                    </li>
-
-
-                    <!-- NOSOTROS -->
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="../LandingPage/nosotros.html">
-                            Nosotros
-                        </a>
-
-                    </li>
-
-
-                    <!-- CONTACTO -->
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="../LandingPage/contacto.html">
-                            Contacto
-                        </a>
-
-                    </li>
-
-
-                    <!-- PORTAL PRIVADO -->
-                    <li class="nav-item">
-
-                        <a class="nav-link portal-privado"
-                           href="../RF06-Gestionar reservas/index.html">
-
-                            <i class="bi bi-lock-fill"></i>
-                            Portal privado
-
-                        </a>
-
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </nav>
-
-    </header>
-
+</header>
 
     <main class="container">
 
@@ -279,13 +249,10 @@
 
     </main>
 
-
-    <footer>
-
-        <p>
+    <footer class="text-center py-4 mt-5 border-top">
+        <p class="mb-0">
             &copy; 2026 Hotel Descanso Total · Viña del Mar, Chile
         </p>
-
     </footer>
 
 
