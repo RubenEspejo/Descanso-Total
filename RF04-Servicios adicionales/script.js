@@ -160,77 +160,133 @@ function cargarServicios(reserva) {
 }
 
 
-botonAgregar.addEventListener("click", function() {
+botonAgregar.addEventListener("click", function(event) {
+    event.preventDefault();
 
     mensajeServicios.textContent = "";
 
-    if (indiceReserva === -1) {
-        return;
-    }
-
-    const serviciosSeleccionados = [];
-
-    selects.forEach(function(select) {
-
-        const cantidad = Number(select.value);
-        const precio = Number(select.getAttribute("data-price"));
-        const nombre = select.getAttribute("data-servicio");
-
-        if (cantidad > 0) {
-
-            serviciosSeleccionados.push({
-                nombre: nombre,
-                cantidad: cantidad,
-                precio: precio,
-                subtotal: cantidad * precio
-            });
+    try {
+        if (indiceReserva === -1) {
+            throw new Error("Primero busca una reserva.");
         }
-    });
 
+        const codigoSeleccionado = reservas[indiceReserva].codigo;
+        const serviciosSeleccionados = [];
+        let nuevoTotalServicios = 0;
 
-    if (serviciosSeleccionados.length === 0) {
+        for (const select of selects) {
+            const cantidad = Number(select.value);
+            const precio = Number(select.getAttribute("data-price"));
+            const nombre = select.getAttribute("data-servicio");
+
+            if (
+                select.value === "" ||
+                !Number.isSafeInteger(cantidad) ||
+                cantidad < 0 ||
+                !Number.isFinite(precio) ||
+                precio <= 0
+            ) {
+                throw new Error(
+                    "Revisa las cantidades. Deben ser enteros iguales o mayores que cero."
+                );
+            }
+
+            if (cantidad > 0) {
+                const subtotal = cantidad * precio;
+
+                serviciosSeleccionados.push({
+                    nombre: nombre,
+                    cantidad: cantidad,
+                    precio: precio,
+                    subtotal: subtotal
+                });
+
+                nuevoTotalServicios += subtotal;
+            }
+        }
+
+        if (serviciosSeleccionados.length === 0) {
+            throw new Error("Debes seleccionar al menos un servicio.");
+        }
+
+        if (!Number.isSafeInteger(nuevoTotalServicios)) {
+            throw new Error("El importe de servicios no es válido.");
+        }
+
+        const reservasActuales = JSON.parse(
+            localStorage.getItem("reservas") || "[]"
+        );
+
+        if (!Array.isArray(reservasActuales)) {
+            throw new Error("Los datos guardados no son válidos.");
+        }
+
+        const reserva = reservasActuales.find(function(item) {
+            return item && item.codigo === codigoSeleccionado;
+        });
+
+        if (!reserva) {
+            throw new Error("La reserva ya no existe. Vuelve a buscarla.");
+        }
+
+        if (
+            reserva.estado !== "Confirmada" &&
+            reserva.estado !== "Check-in"
+        ) {
+            throw new Error(
+                "El estado actual de la reserva no permite agregar servicios."
+            );
+        }
+
+        const totalAnterior = Number(reserva.total);
+        const serviciosAnteriores = Number(reserva.totalServicios ?? 0);
+
+        if (
+            reserva.total == null ||
+            String(reserva.total).trim() === "" ||
+            !Number.isFinite(totalAnterior) ||
+            !Number.isFinite(serviciosAnteriores) ||
+            serviciosAnteriores < 0 ||
+            totalAnterior < serviciosAnteriores
+        ) {
+            throw new Error("El total anterior de la reserva no es válido.");
+        }
+
+        const totalAlojamiento = totalAnterior - serviciosAnteriores;
+        const nuevoTotal = totalAlojamiento + nuevoTotalServicios;
+
+        if (!Number.isFinite(nuevoTotal)) {
+            throw new Error("No se pudo calcular el total de la reserva.");
+        }
+
+        reserva.servicios = serviciosSeleccionados;
+        reserva.totalServicios = nuevoTotalServicios;
+        reserva.total = nuevoTotal;
+
+        localStorage.setItem(
+            "reservas",
+            JSON.stringify(reservasActuales)
+        );
+
+        reservas = reservasActuales;
+        indiceReserva = reservas.findIndex(function(item) {
+            return item.codigo === codigoSeleccionado;
+        });
+
+        totalServicios = nuevoTotalServicios;
+        calcularTotales();
 
         mensajeServicios.textContent =
-            "Debes seleccionar al menos un servicio.";
+            "Servicios guardados. Total de servicios: $" +
+            nuevoTotalServicios.toLocaleString("es-CL") +
+            ". Total de la reserva: $" +
+            nuevoTotal.toLocaleString("es-CL") + ".";
 
-        mensajeServicios.className =
-            "mt-3 text-danger";
-
-        return;
+        mensajeServicios.className = "mt-3 text-success";
+    } catch (error) {
+        mensajeServicios.textContent = error.message;
+        mensajeServicios.className = "mt-3 text-danger";
     }
-
-
-    const reserva = reservas[indiceReserva];
-
-    const totalAnteriorServicios =
-        reserva.totalServicios || 0;
-
-    const totalAlojamiento =
-        reserva.total - totalAnteriorServicios;
-
-    reserva.servicios =
-        serviciosSeleccionados;
-
-    reserva.totalServicios =
-        totalServicios;
-
-    reserva.total =
-        totalAlojamiento + totalServicios;
-
-
-    localStorage.setItem(
-        "reservas",
-        JSON.stringify(reservas)
-    );
-
-
-    mensajeServicios.textContent =
-        "Servicios agregados correctamente. Total de servicios: $" +
-        totalServicios.toLocaleString("es-CL");
-
-    mensajeServicios.className =
-        "mt-3 text-success";
 });
-
 
 calcularTotales();

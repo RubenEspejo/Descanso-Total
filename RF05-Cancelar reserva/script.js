@@ -3,155 +3,141 @@ const codigo = document.getElementById("inputCodigo");
 const email = document.getElementById("inputEmail");
 const detalleReserva = document.getElementById("detalleReserva");
 
-let reservaEncontrada = null;
-let indiceReserva = -1;
-
-formulario.addEventListener("submit", function(event) {
-
+formulario.addEventListener("submit", function (event) {
     event.preventDefault();
-
-    detalleReserva.innerHTML = "";
+    detalleReserva.replaceChildren();
 
     const codigoIngresado = codigo.value.trim().toUpperCase();
     const emailIngresado = email.value.trim().toLowerCase();
 
     if (codigoIngresado === "" || emailIngresado === "") {
-        detalleReserva.innerHTML = `
-            <p class="text-danger">
-                Debes ingresar el código de reserva y el correo electrónico.
-            </p>
-        `;
+        mostrarError("Debes ingresar el código de reserva y el correo electrónico.");
         return;
     }
 
-    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailIngresado)) {
+        mostrarError("Debes ingresar un correo electrónico válido.");
+        return;
+    }
 
-    indiceReserva = reservas.findIndex(function(reserva) {
+    try {
+        const reservas = leerReservas();
 
-        return (
-            reserva.codigo.toUpperCase() === codigoIngresado &&
-            reserva.email.toLowerCase() === emailIngresado
+        const reserva = buscarReserva(
+            reservas,
+            codigoIngresado,
+            emailIngresado
         );
-    });
 
-    if (indiceReserva === -1) {
-        detalleReserva.innerHTML = `
-            <p class="text-danger">
-                No se encontró una reserva con los datos ingresados.
-            </p>
-        `;
-        return;
+        if (!reserva) {
+            mostrarError("No se encontró una reserva con los datos ingresados.");
+            return;
+        }
+
+        mostrarReserva(reserva);
+    } catch (error) {
+        mostrarError("No se pudieron leer las reservas guardadas.");
     }
-
-    reservaEncontrada = reservas[indiceReserva];
-
-    mostrarReserva(reservaEncontrada);
 });
 
-
-function mostrarReserva(reserva) {
-
-    let botonCancelar = "";
+function leerReservas() {
+    const reservas = JSON.parse(localStorage.getItem("reservas") || "[]");
 
     if (
-        reserva.estado === "Solicitada" ||
-        reserva.estado === "Confirmada"
+        !Array.isArray(reservas) ||
+        reservas.some(function (reserva) {
+            return (
+                !reserva ||
+                typeof reserva.codigo !== "string" ||
+                typeof reserva.email !== "string"
+            );
+        })
     ) {
-        botonCancelar = `
-            <button
-                type="button"
-                class="btn btn-danger"
-                id="btnCancelar">
-
-                Cancelar reserva
-
-            </button>
-        `;
+        throw new Error("Datos de reservas inválidos");
     }
 
+    return reservas;
+}
+
+function buscarReserva(reservas, codigoBuscado, correoBuscado) {
+    return reservas.find(function (reserva) {
+        return (
+            reserva.codigo.trim().toUpperCase() === codigoBuscado &&
+            reserva.email.trim().toLowerCase() === correoBuscado
+        );
+    });
+}
+
+function permiteCancelar(reserva) {
+    return (
+        reserva.estado === "Solicitada" ||
+        reserva.estado === "Confirmada"
+    );
+}
+
+function mostrarReserva(reserva) {
     detalleReserva.innerHTML = `
         <div class="card">
-
             <div class="card-body">
-
-                <h2 class="card-title">
-                    Detalle de la reserva
-                </h2>
-
-                <p>
-                    <strong>Código:</strong>
-                    ${reserva.codigo}
-                </p>
-
-                <p>
-                    <strong>Huésped:</strong>
-                    ${reserva.nombre} ${reserva.apellido}
-                </p>
-
-                <p>
-                    <strong>Email:</strong>
-                    ${reserva.email}
-                </p>
-
-                <p>
-                    <strong>Habitación:</strong>
-                    ${reserva.habitacion}
-                </p>
-
-                <p>
-                    <strong>Fecha de entrada:</strong>
-                    ${reserva.entrada}
-                </p>
-
-                <p>
-                    <strong>Fecha de salida:</strong>
-                    ${reserva.salida}
-                </p>
-
-                <p>
-                    <strong>Estado:</strong>
-                    ${reserva.estado}
-                </p>
-
-                ${botonCancelar}
-
-                <p id="mensajeCancelacion" class="mt-3"></p>
-
+                <h2 class="card-title">Detalle de la reserva</h2>
+                <div id="datosReserva"></div>
+                <div id="accionesReserva"></div>
+                <p id="mensajeCancelacion" class="mt-3" role="status"></p>
             </div>
-
         </div>
     `;
 
-    const boton = document.getElementById("btnCancelar");
+    const datosReserva = document.getElementById("datosReserva");
+    const acciones = document.getElementById("accionesReserva");
+    const mensaje = document.getElementById("mensajeCancelacion");
 
-    if (boton) {
-        boton.addEventListener("click", cancelarReserva);
-    }
+    const datos = [
+        ["Código", reserva.codigo],
+        [
+            "Huésped",
+            [reserva.nombre, reserva.apellido].filter(Boolean).join(" ")
+        ],
+        ["Email", reserva.email],
+        ["Habitación", reserva.habitacion],
+        ["Fecha de entrada", formatearFecha(reserva.entrada)],
+        ["Fecha de salida", formatearFecha(reserva.salida)],
+        ["Estado", reserva.estado]
+    ];
 
-    if (
-        reserva.estado === "Check-in" ||
-        reserva.estado === "Check-out"
-    ) {
-        document.getElementById("mensajeCancelacion").textContent =
+    datos.forEach(function (dato) {
+        const parrafo = document.createElement("p");
+        const etiqueta = document.createElement("strong");
+
+        etiqueta.textContent = dato[0] + ": ";
+        parrafo.append(etiqueta, document.createTextNode(String(dato[1])));
+        datosReserva.appendChild(parrafo);
+    });
+
+    if (permiteCancelar(reserva)) {
+        const boton = document.createElement("button");
+        boton.type = "button";
+        boton.className = "btn btn-danger";
+        boton.textContent = "Cancelar reserva";
+
+        boton.addEventListener("click", function () {
+            cancelarReserva(
+                reserva.codigo.trim().toUpperCase(),
+                reserva.email.trim().toLowerCase()
+            );
+        });
+
+        acciones.appendChild(boton);
+    } else if (reserva.estado === "Cancelada") {
+        mensaje.textContent = "Esta reserva ya se encuentra cancelada.";
+    } else {
+        mensaje.textContent =
             "Esta reserva no puede ser cancelada debido a su estado actual.";
-
-        document.getElementById("mensajeCancelacion").className =
-            "mt-3 text-danger";
-    }
-
-    if (reserva.estado === "Cancelada") {
-        document.getElementById("mensajeCancelacion").textContent =
-            "Esta reserva ya se encuentra cancelada.";
-
-        document.getElementById("mensajeCancelacion").className =
-            "mt-3 text-warning";
+        mensaje.className = "mt-3 text-danger";
     }
 }
 
-
-function cancelarReserva() {
-
-    const confirmar = confirm(
+function cancelarReserva(codigoBuscado, correoBuscado) {
+    const confirmar = window.confirm(
         "¿Estás seguro de que deseas cancelar esta reserva?"
     );
 
@@ -159,24 +145,59 @@ function cancelarReserva() {
         return;
     }
 
-    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    try {
+        const reservas = leerReservas();
+        const reserva = buscarReserva(reservas, codigoBuscado, correoBuscado);
 
-    reservas[indiceReserva].estado = "Cancelada";
+        if (!reserva) {
+            mostrarError("La reserva ya no está disponible para su consulta.");
+            return;
+        }
 
-    localStorage.setItem(
-        "reservas",
-        JSON.stringify(reservas)
-    );
+        if (!permiteCancelar(reserva)) {
+            mostrarReserva(reserva);
+            return;
+        }
 
-    reservaEncontrada = reservas[indiceReserva];
+        reserva.estado = "Cancelada";
 
-    mostrarReserva(reservaEncontrada);
+        localStorage.setItem("reservas", JSON.stringify(reservas));
 
-    const mensaje = document.getElementById("mensajeCancelacion");
+        mostrarReserva(reserva);
 
-    mensaje.textContent =
-        "La reserva fue cancelada correctamente.";
-
-    mensaje.className =
-        "mt-3 text-success";
+        const mensaje = document.getElementById("mensajeCancelacion");
+        mensaje.textContent = "La reserva fue cancelada correctamente.";
+        mensaje.className = "mt-3 text-success";
+    } catch (error) {
+        const mensaje = document.getElementById("mensajeCancelacion");
+        mensaje.textContent =
+            "No se pudo guardar la cancelación. Vuelve a consultar la reserva.";
+        mensaje.className = "mt-3 text-danger";
+    }
 }
+
+function formatearFecha(fecha) {
+    if (typeof fecha !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+        return "Fecha no válida";
+    }
+
+    const partes = fecha.split("-");
+    return partes[2] + "/" + partes[1] + "/" + partes[0];
+}
+
+function mostrarError(texto) {
+    detalleReserva.replaceChildren();
+
+    const mensaje = document.createElement("p");
+    mensaje.className = "text-danger";
+    mensaje.setAttribute("role", "alert");
+    mensaje.textContent = texto;
+
+    detalleReserva.appendChild(mensaje);
+}
+
+[codigo, email].forEach(function (campo) {
+    campo.addEventListener("input", function () {
+        detalleReserva.replaceChildren();
+    });
+});
