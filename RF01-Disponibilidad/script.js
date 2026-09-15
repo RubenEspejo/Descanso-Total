@@ -81,6 +81,13 @@ formulario.addEventListener("submit", function (event) {
         );
         return;
     }
+    if (fechaEntrada < obtenerHoy()) {
+    mostrarMensaje(
+        "La fecha de entrada no puede ser anterior a hoy.",
+        true
+    );
+    return;
+    }
 
     if (fechaSalida <= fechaEntrada) {
         mostrarMensaje(
@@ -258,3 +265,14 @@ function limpiarResultados() {
     campo.addEventListener("input", limpiarResultados);
     campo.addEventListener("change", limpiarResultados);
 });
+
+function obtenerHoy() {
+    const fecha = new Date();
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+    const dia = String(fecha.getDate()).padStart(2, "0");
+
+    return `${anio}-${mes}-${dia}`;
+}
+
+entrada.min = obtenerHoy();

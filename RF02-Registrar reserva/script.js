@@ -74,6 +74,10 @@ formulario.addEventListener("submit", function (event) {
         mostrarError("Debes completar todos los campos.");
         return;
     }
+    if (entrada.value < obtenerHoy()) {
+    mostrarError("La fecha de entrada no puede ser anterior a hoy.");
+    return;
+    }
 
     if (nombre.value.trim().length < 3) {
         mostrarError("El nombre debe tener al menos 3 caracteres.");
@@ -333,3 +337,13 @@ function mostrarError(texto) {
     mensaje.textContent = texto;
     mensaje.className = "mt-4 text-danger";
 }
+function obtenerHoy() {
+    const fecha = new Date();
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+    const dia = String(fecha.getDate()).padStart(2, "0");
+
+    return `${anio}-${mes}-${dia}`;
+}
+
+entrada.min = obtenerHoy();
