@@ -8,282 +8,285 @@ const nombreHuesped = document.getElementById("nombreHuesped");
 const habitacionReserva = document.getElementById("habitacionReserva");
 const estadoReserva = document.getElementById("estadoReserva");
 
-const cantidades = document.querySelectorAll(".qty-select");
+const selects = document.querySelectorAll(".qty-select");
 const grandTotalEl = document.getElementById("grand-total");
 const botonAgregar = document.getElementById("btnAgregarServicios");
 const mensajeServicios = document.getElementById("mensajeServicios");
 
-let codigoActivo = null;
+let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+let indiceReserva = -1;
+let totalServicios = 0;
 
-formulario.addEventListener("submit", function (event) {
+
+formulario.addEventListener("submit", function(event) {
+
     event.preventDefault();
-
-    codigoActivo = null;
-    seccionServicios.style.display = "none";
-    mensajeBusqueda.textContent = "";
-    mensajeServicios.textContent = "";
 
     const codigo = codigoReserva.value.trim().toUpperCase();
 
+    mensajeBusqueda.textContent = "";
+    mensajeServicios.textContent = "";
+    seccionServicios.style.display = "none";
+
     if (codigo === "") {
-        mostrarMensaje(
-            mensajeBusqueda,
-            "Debes ingresar el código de reserva.",
-            true
-        );
+
+        mensajeBusqueda.textContent =
+            "Debes ingresar el código de reserva.";
+
+        mensajeBusqueda.className =
+            "mt-3 text-danger";
+
         return;
     }
 
-    try {
-        const reservas = leerReservas();
+    reservas = JSON.parse(localStorage.getItem("reservas")) || [];
 
-        const reserva = reservas.find(function (reserva) {
-            return reserva.codigo.trim().toUpperCase() === codigo;
-        });
+    indiceReserva = reservas.findIndex(function(reserva) {
+        return reserva.codigo.toUpperCase() === codigo;
+    });
 
-        if (!reserva) {
-            mostrarMensaje(
-                mensajeBusqueda,
-                "No se encontró una reserva con ese código.",
-                true
-            );
-            return;
-        }
+    if (indiceReserva === -1) {
 
-        if (!permiteServicios(reserva)) {
-            mostrarMensaje(
-                mensajeBusqueda,
-                "Solo puedes agregar servicios a reservas Confirmadas o con Check-in.",
-                true
-            );
-            return;
-        }
+        mensajeBusqueda.textContent =
+            "No se encontró una reserva con ese código.";
 
-        cargarServicios(reserva);
+        mensajeBusqueda.className =
+            "mt-3 text-danger";
 
-        codigoActivo = reserva.codigo;
-        codigoEncontrado.textContent = reserva.codigo;
-        nombreHuesped.textContent =
-            [reserva.nombre, reserva.apellido].filter(Boolean).join(" ");
-        habitacionReserva.textContent = reserva.habitacion;
-        estadoReserva.textContent = reserva.estado;
-
-        seccionServicios.style.display = "block";
-
-        mostrarMensaje(
-            mensajeBusqueda,
-            "Reserva encontrada correctamente."
-        );
-        } catch (error) {
-        mostrarMensaje(
-            mensajeServicios,
-            "No se pudieron guardar los servicios: " + error.message,
-            true
-        );
+        return;
     }
+
+    const reserva = reservas[indiceReserva];
+
+    if (
+        reserva.estado !== "Confirmada" &&
+        reserva.estado !== "Check-in"
+    ) {
+
+        mensajeBusqueda.textContent =
+            "Solo puedes agregar servicios a una reserva confirmada o con check-in.";
+
+        mensajeBusqueda.className =
+            "mt-3 text-danger";
+
+        return;
+    }
+
+    codigoEncontrado.textContent = reserva.codigo;
+
+    nombreHuesped.textContent =
+        reserva.nombre + " " + reserva.apellido;
+
+    habitacionReserva.textContent =
+        reserva.habitacion;
+
+    estadoReserva.textContent =
+        reserva.estado;
+
+    cargarServicios(reserva);
+
+    seccionServicios.style.display = "block";
+
+    mensajeBusqueda.textContent =
+        "Reserva encontrada correctamente.";
+
+    mensajeBusqueda.className =
+        "mt-3 text-success";
 });
 
-function leerReservas() {
-    const reservas = JSON.parse(localStorage.getItem("reservas") || "[]");
 
-    if (
-        !Array.isArray(reservas) ||
-        reservas.some(function (reserva) {
-            return !reserva || typeof reserva.codigo !== "string";
-        })
-    ) {
-        throw new Error("Datos inválidos");
-    }
+selects.forEach(function(select) {
 
-    return reservas;
+    select.addEventListener("change", calcularTotales);
+
+});
+
+
+function calcularTotales() {
+
+    totalServicios = 0;
+
+    selects.forEach(function(select) {
+
+        const cantidad = Number(select.value);
+        const precio = Number(select.getAttribute("data-price"));
+
+        const subtotal = cantidad * precio;
+
+        const fila = select.closest("tr");
+        const subtotalEl = fila.querySelector(".subtotal");
+
+        subtotalEl.textContent =
+            "$" + subtotal.toLocaleString("es-CL");
+
+        totalServicios += subtotal;
+    });
+
+    grandTotalEl.textContent =
+        "$" + totalServicios.toLocaleString("es-CL");
 }
 
-function permiteServicios(reserva) {
-    return (
-        reserva.estado === "Confirmada" ||
-        reserva.estado === "Check-in"
-    );
-}
 
 function cargarServicios(reserva) {
-    const servicios = reserva.servicios || [];
 
-    if (
-        !Array.isArray(servicios) ||
-        servicios.some(function (servicio) {
-            return !servicio || typeof servicio.nombre !== "string";
-        })
-    ) {
-        throw new Error("Servicios inválidos");
-    }
+    selects.forEach(function(select) {
 
-    cantidades.forEach(function (campo) {
-        const guardado = servicios.find(function (servicio) {
-            return servicio.nombre === campo.dataset.servicio;
-        });
+        select.value = "0";
 
-        campo.value = guardado ? guardado.cantidad : 0;
     });
+
+    if (reserva.servicios) {
+
+        reserva.servicios.forEach(function(servicioGuardado) {
+
+            selects.forEach(function(select) {
+
+                const nombreServicio =
+                    select.getAttribute("data-servicio");
+
+                if (
+                    nombreServicio ===
+                    servicioGuardado.nombre
+                ) {
+
+                    select.value =
+                        servicioGuardado.cantidad;
+                }
+            });
+        });
+    }
 
     calcularTotales();
 }
 
-function calcularTotales() {
-    let total = 0;
-    let valido = true;
 
-    cantidades.forEach(function (campo) {
-        const cantidad = Number(campo.value);
-        const precio = Number(campo.dataset.price);
-        const subtotalEl = campo.closest("tr").querySelector(".subtotal");
+botonAgregar.addEventListener("click", function(event) {
+    event.preventDefault();
 
-        if (
-            campo.value === "" ||
-            !Number.isSafeInteger(cantidad) ||
-            cantidad < 0 ||
-            !Number.isSafeInteger(cantidad * precio)
-        ) {
-            subtotalEl.textContent = "Cantidad inválida";
-            campo.classList.add("is-invalid");
-            valido = false;
-            return;
-        }
-
-        campo.classList.remove("is-invalid");
-
-        const subtotal = cantidad * precio;
-        subtotalEl.textContent = "$" + subtotal.toLocaleString("es-CL");
-        total += subtotal;
-    });
-
-    if (!Number.isSafeInteger(total)) {
-        valido = false;
-    }
-
-    grandTotalEl.textContent = valido
-        ? "$" + total.toLocaleString("es-CL")
-        : "Revisa las cantidades";
-
-    return valido ? total : null;
-}
-
-cantidades.forEach(function (campo) {
-    campo.addEventListener("input", function () {
-        mensajeServicios.textContent = "";
-        calcularTotales();
-    });
-});
-
-botonAgregar.addEventListener("click", function () {
     mensajeServicios.textContent = "";
 
-    if (!codigoActivo) {
-        return;
-    }
-
-    const totalServicios = calcularTotales();
-
-    if (totalServicios === null) {
-        mostrarMensaje(
-            mensajeServicios,
-            "Las cantidades deben ser números enteros iguales o mayores que cero.",
-            true
-        );
-        return;
-    }
-
-    if (totalServicios === 0) {
-        mostrarMensaje(
-            mensajeServicios,
-            "Debes seleccionar al menos un servicio con cantidad mayor que cero.",
-            true
-        );
-        return;
-    }
-
-    const serviciosSeleccionados = [];
-
-    cantidades.forEach(function (campo) {
-        const cantidad = Number(campo.value);
-        const precio = Number(campo.dataset.price);
-
-        if (cantidad > 0) {
-            serviciosSeleccionados.push({
-                nombre: campo.dataset.servicio,
-                unidad: campo.dataset.unidad,
-                cantidad: cantidad,
-                precio: precio,
-                subtotal: cantidad * precio
-            });
-        }
-    });
-
     try {
-        const reservas = leerReservas();
+        if (indiceReserva === -1) {
+            throw new Error("Primero busca una reserva.");
+        }
 
-        const reserva = reservas.find(function (reserva) {
-            return reserva.codigo === codigoActivo;
+        const codigoSeleccionado = reservas[indiceReserva].codigo;
+        const serviciosSeleccionados = [];
+        let nuevoTotalServicios = 0;
+
+        for (const select of selects) {
+            const cantidad = Number(select.value);
+            const precio = Number(select.getAttribute("data-price"));
+            const nombre = select.getAttribute("data-servicio");
+
+            if (
+                select.value === "" ||
+                !Number.isSafeInteger(cantidad) ||
+                cantidad < 0 ||
+                !Number.isFinite(precio) ||
+                precio <= 0
+            ) {
+                throw new Error(
+                    "Revisa las cantidades. Deben ser enteros iguales o mayores que cero."
+                );
+            }
+
+            if (cantidad > 0) {
+                const subtotal = cantidad * precio;
+
+                serviciosSeleccionados.push({
+                    nombre: nombre,
+                    cantidad: cantidad,
+                    precio: precio,
+                    subtotal: subtotal
+                });
+
+                nuevoTotalServicios += subtotal;
+            }
+        }
+
+        if (serviciosSeleccionados.length === 0) {
+            throw new Error("Debes seleccionar al menos un servicio.");
+        }
+
+        if (!Number.isSafeInteger(nuevoTotalServicios)) {
+            throw new Error("El importe de servicios no es válido.");
+        }
+
+        const reservasActuales = JSON.parse(
+            localStorage.getItem("reservas") || "[]"
+        );
+
+        if (!Array.isArray(reservasActuales)) {
+            throw new Error("Los datos guardados no son válidos.");
+        }
+
+        const reserva = reservasActuales.find(function(item) {
+            return item && item.codigo === codigoSeleccionado;
         });
 
-        if (!reserva || !permiteServicios(reserva)) {
-            codigoActivo = null;
-            seccionServicios.style.display = "none";
-
-            mostrarMensaje(
-                mensajeBusqueda,
-                "La reserva ya no permite agregar servicios. Vuelve a consultarla.",
-                true
-            );
-            return;
+        if (!reserva) {
+            throw new Error("La reserva ya no existe. Vuelve a buscarla.");
         }
 
-        const totalAlojamiento =
-            Number(reserva.precio) * Number(reserva.noches);
+        if (
+            reserva.estado !== "Confirmada" &&
+            reserva.estado !== "Check-in"
+        ) {
+            throw new Error(
+                "El estado actual de la reserva no permite agregar servicios."
+            );
+        }
 
-        const totalReserva = totalAlojamiento + totalServicios;
+        const totalAnterior = Number(reserva.total);
+        const serviciosAnteriores = Number(reserva.totalServicios ?? 0);
 
         if (
-            !Number.isSafeInteger(totalAlojamiento) ||
-            totalAlojamiento < 0 ||
-            !Number.isSafeInteger(totalReserva)
+            reserva.total == null ||
+            String(reserva.total).trim() === "" ||
+            !Number.isFinite(totalAnterior) ||
+            !Number.isFinite(serviciosAnteriores) ||
+            serviciosAnteriores < 0 ||
+            totalAnterior < serviciosAnteriores
         ) {
-            throw new Error("Monto de alojamiento inválido");
+            throw new Error("El total anterior de la reserva no es válido.");
+        }
+
+        const totalAlojamiento = totalAnterior - serviciosAnteriores;
+        const nuevoTotal = totalAlojamiento + nuevoTotalServicios;
+
+        if (!Number.isFinite(nuevoTotal)) {
+            throw new Error("No se pudo calcular el total de la reserva.");
         }
 
         reserva.servicios = serviciosSeleccionados;
-        reserva.totalServicios = totalServicios;
-        reserva.total = totalReserva;
+        reserva.totalServicios = nuevoTotalServicios;
+        reserva.total = nuevoTotal;
 
-        localStorage.setItem("reservas", JSON.stringify(reservas));
+        localStorage.setItem(
+            "reservas",
+            JSON.stringify(reservasActuales)
+        );
 
-        mostrarMensaje(
-            mensajeServicios,
+        reservas = reservasActuales;
+        indiceReserva = reservas.findIndex(function(item) {
+            return item.codigo === codigoSeleccionado;
+        });
+
+        totalServicios = nuevoTotalServicios;
+        calcularTotales();
+
+        mensajeServicios.textContent =
             "Servicios guardados. Total de servicios: $" +
-            totalServicios.toLocaleString("es-CL") +
+            nuevoTotalServicios.toLocaleString("es-CL") +
             ". Total de la reserva: $" +
-            totalReserva.toLocaleString("es-CL") + "."
-        );
+            nuevoTotal.toLocaleString("es-CL") + ".";
+
+        mensajeServicios.className = "mt-3 text-success";
     } catch (error) {
-        mostrarMensaje(
-            mensajeServicios,
-            "No se pudieron guardar los servicios. Revisa los datos y el almacenamiento.",
-            true
-        );
+        mensajeServicios.textContent = error.message;
+        mensajeServicios.className = "mt-3 text-danger";
     }
 });
-
-codigoReserva.addEventListener("input", function () {
-    codigoActivo = null;
-    seccionServicios.style.display = "none";
-    mensajeBusqueda.textContent = "";
-    mensajeServicios.textContent = "";
-});
-
-function mostrarMensaje(elemento, texto, esError = false) {
-    elemento.textContent = texto;
-    elemento.className = esError
-        ? "mt-3 text-danger"
-        : "mt-3 text-success";
-}
 
 calcularTotales();
