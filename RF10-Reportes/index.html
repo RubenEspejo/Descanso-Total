@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Hotel Descanso Total | Reportes</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
 
     <link rel="stylesheet" href="estilos.css">
-    </head>
+</head>
 
-   
-
-    <body>
+<body>
 
     <header>
 
@@ -22,59 +24,76 @@
 
             <div class="container-fluid">
 
-                <a class="navbar-brand m-0 p-0"
-                href="../LandingPage/index.html">
+                <a
+                    class="navbar-brand m-0 p-0"
+                    href="../LandingPage/index.html"
+                >
 
                     <img
                         src="../LandingPage/images/logo.png"
                         alt="Logo Hotel Descanso Total"
-                        class="logo">
+                        class="logo"
+                    >
 
                 </a>
 
                 <ul class="navbar-nav flex-row flex-grow-1 justify-content-around align-items-center">
 
                     <li class="nav-item">
-                        <a class="nav-link"
-                        href="../RF06-Gestionar reservas/index.html">
+                        <a
+                            class="nav-link"
+                            href="../RF06-Gestionar reservas/index.html"
+                        >
                             Reservas
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link"
-                        href="../RF07-Check-in/index.html">
+                        <a
+                            class="nav-link"
+                            href="../RF07-Check-in/index.html"
+                        >
                             Check-in
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link"
-                        href="../RF08-Gestionar limpieza/index.html">
+                        <a
+                            class="nav-link"
+                            href="../RF08-Gestionar limpieza/index.html"
+                        >
                             Limpieza
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link"
-                        href="../RF09-Check-out y cobro/index.html">
+                        <a
+                            class="nav-link"
+                            href="../RF09-Check-out y cobro/index.html"
+                        >
                             Check-out
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active"
-                        href="index.html">
+                        <a
+                            class="nav-link active"
+                            href="index.html"
+                        >
                             Reportes
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-outline-danger"
-                        href="../LandingPage/index.html">
+
+                        <a
+                            class="btn btn-outline-danger"
+                            href="../LandingPage/index.html"
+                        >
                             <i class="bi bi-box-arrow-right"></i>
                             Salir
                         </a>
+
                     </li>
 
                 </ul>
@@ -85,50 +104,322 @@
 
     </header>
 
-        <hr>
-        <main class="container py-4">
+    <hr>
 
-            <h1>Reportes</h1>
-            <p class="text-center">Mostrar ocupación e ingresos de los datos de prueba</p>
-            <br>
+    <main class="container py-4">
 
-            <div class="row justify-content-center g-4">
+        <h1 class="text-center">Reportes</h1>
 
-            <div class="col-12 col-md-8">
+        <p class="text-center">
+            Consulta la ocupación del hotel y los ingresos registrados
+        </p>
+
+        <br>
+
+        <div class="row justify-content-center g-4">
+
+            <div class="col-12 col-md-6">
+
                 <div class="card shadow-sm h-100">
+
                     <div class="card-body">
-                        <h2 class="h5 card-title">Generar reporte</h2>
+
+                        <h2 class="h5 card-title">
+                            Reporte de ocupación
+                        </h2>
 
                         <form class="row g-3">
-                            <div class="col-md-5">
-                                <label for="desde" class="form-label">Desde</label>
-                                <input type="date" id="desde" name="desde" class="form-control">
+
+                            <div class="col-md-8">
+
+                                <label
+                                    for="fechaOcupacion"
+                                    class="form-label"
+                                >
+                                    Fecha
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="fechaOcupacion"
+                                    name="fechaOcupacion"
+                                    class="form-control"
+                                >
+
                             </div>
-                            <div class="col-md-5">
-                                <label for="hasta" class="form-label">Hasta</label>
-                                <input type="date" id="hasta" name="hasta" class="form-control">
+
+                            <div class="col-md-4 d-flex align-items-end">
+
+                                <button
+                                    type="button"
+                                    id="btnOcupacion"
+                                    class="btn btn-primary w-100"
+                                >
+                                    Consultar
+                                </button>
+
                             </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button type="button" id="btnGenerar" class="btn btn-primary w-100">Generar</button>
-                            </div>
+
                         </form>
 
-                        <p id="resultado" class="mt-3 mb-0"></p>
+                        <p
+                            id="resultadoOcupacion"
+                            class="mt-3 mb-0"
+                        ></p>
+
                     </div>
+
                 </div>
+
+            </div>
+
+            <div class="col-12 col-md-6">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="h5 card-title">
+                            Reporte de ingresos
+                        </h2>
+
+                        <form class="row g-3">
+
+                            <div class="col-md-5">
+
+                                <label
+                                    for="desde"
+                                    class="form-label"
+                                >
+                                    Desde
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="desde"
+                                    name="desde"
+                                    class="form-control"
+                                >
+
+                            </div>
+
+                            <div class="col-md-5">
+
+                                <label
+                                    for="hasta"
+                                    class="form-label"
+                                >
+                                    Hasta
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="hasta"
+                                    name="hasta"
+                                    class="form-control"
+                                >
+
+                            </div>
+
+                            <div class="col-md-2 d-flex align-items-end">
+
+                                <button
+                                    type="button"
+                                    id="btnIngresos"
+                                    class="btn btn-primary w-100"
+                                >
+                                    Ver
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                        <p
+                            id="resultadoIngresos"
+                            class="mt-3 mb-0"
+                        ></p>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
-            
+        <div class="row g-4 mt-2">
 
-        </main>
-        <hr>  
-         <footer class="text-center py-3">
-            <p>&copy; 2026 Hotel Descanso Total · Viña del Mar, Chile</p>
-        </footer>
+            <div class="col-12 col-md-4">
 
-        <script src="script.js" defer></script>
+                <div class="card shadow-sm h-100">
 
-    </body>
+                    <div class="card-body text-center">
 
+                        <h2 class="h5">
+                            Habitaciones ocupadas
+                        </h2>
+
+                        <p
+                            id="cantidadOcupadas"
+                            class="fs-2 fw-bold text-primary mb-0"
+                        >
+                            0
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-4">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body text-center">
+
+                        <h2 class="h5">
+                            Porcentaje de ocupación
+                        </h2>
+
+                        <p
+                            id="porcentajeOcupacion"
+                            class="fs-2 fw-bold text-primary mb-0"
+                        >
+                            0%
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-4">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body text-center">
+
+                        <h2 class="h5">
+                            Ingresos del período
+                        </h2>
+
+                        <p
+                            id="totalIngresos"
+                            class="fs-2 fw-bold text-success mb-0"
+                        >
+                            $0
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <section class="mt-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h2 class="h5">
+                        Detalle de ocupación
+                    </h2>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-striped align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th>Habitación</th>
+                                    <th>Reserva</th>
+                                    <th>Huésped</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tablaOcupacion">
+
+                                <tr>
+                                    <td colspan="4">
+                                        Sin datos para mostrar.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="mt-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h2 class="h5">
+                        Detalle de ingresos
+                    </h2>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-striped align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th>Reserva</th>
+                                    <th>Huésped</th>
+                                    <th>Fecha check-out</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tablaIngresos">
+
+                                <tr>
+                                    <td colspan="4">
+                                        Sin datos para mostrar.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <hr>
+
+    <footer class="text-center py-3">
+
+        <p>
+            &copy; 2026 Hotel Descanso Total · Viña del Mar, Chile
+        </p>
+
+    </footer>
+
+    <script src="script.js" defer></script>
+
+</body>
+</html>
