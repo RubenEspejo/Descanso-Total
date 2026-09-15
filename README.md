@@ -123,53 +123,67 @@ Actualmente el acceso administrativo corresponde a una simulación frontend y no
 
 # 📂 Estructura del proyecto
 
-La estructura puede variar durante el desarrollo, pero actualmente sigue una organización similar a:
+# Estructura del proyecto Descanso Total
 
 ```text
-Descanso-Total/
+DESCANSO-TOTAL/
 │
 ├── LandingPage/
-│   ├── index.html
+│   ├── images/
+│   ├── contacto.html
 │   ├── estilos.css
-│   └── images/
+│   ├── index.html
+│   ├── nosotros.html
+│   └── script.js
 │
 ├── RF01-Disponibilidad/
-│   └── index.html
+│   ├── estilos.css
+│   ├── index.html
+│   └── script.js
 │
 ├── RF02-Registrar reserva/
-│   └── index.html
+│   ├── estilos.css
+│   ├── index.html
+│   └── script.js
 │
 ├── RF03-Estado de reserva/
-│   └── index.html
+│   ├── index.html
+│   ├── estilos.css
+│   └── script.js
 │
 ├── RF04-Servicios adicionales/
-│   └── index.html
+│   ├── index.html
+│   ├── estilos.css
+│   └── script.js
 │
 ├── RF05-Cancelar reserva/
-│   └── index.html
+│   ├── index.html
+│   ├── estilos.css
+│   └── script.js
 │
 ├── RF06-Gestionar reservas/
-│   └── index.html
+│   ├── index.html
+│   ├── estilos.css
+│   └── script.js
 │
 ├── RF07-Check-in/
 │   ├── index.html
+│   ├── estilos.css
 │   └── script.js
 │
 ├── RF08-Gestionar limpieza/
 │   ├── index.html
+│   ├── estilos.css
 │   └── script.js
 │
 ├── RF09-Check-out y cobro/
 │   ├── index.html
+│   ├── estilos.css
 │   └── script.js
 │
 ├── RF10-Reportes/
-│   └── index.html
-│
-├── Nosotros/
-│   └── index.html
-│
-├── Contacto/
-│   └── index.html
+│   ├── index.html
+│   ├── estilos.css
+│   └── script.js
 │
 └── README.md
