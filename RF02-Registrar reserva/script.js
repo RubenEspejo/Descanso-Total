@@ -224,17 +224,29 @@ function leerReservas() {
 }
 
 function generarCodigo(reservas) {
-    let numero = Date.now();
-    let codigo = "DT-" + numero;
+    const usados = new Set(
+        reservas.map(function (reserva) {
+            return reserva.codigo.trim().toUpperCase();
+        })
+    );
 
-    while (reservas.some(function (reserva) {
-        return reserva.codigo === codigo;
-    })) {
-        numero++;
-        codigo = "DT-" + numero;
+    const disponibles = [];
+
+    for (let numero = 1000; numero <= 9999; numero++) {
+        const codigo = "DT-" + numero;
+
+        if (!usados.has(codigo)) {
+            disponibles.push(codigo);
+        }
     }
 
-    return codigo;
+    if (disponibles.length === 0) {
+        throw new Error("No quedan códigos de reserva disponibles.");
+    }
+
+    const posicion = Math.floor(Math.random() * disponibles.length);
+
+    return disponibles[posicion];
 }
 
 function estaDisponible(codigoHabitacion, fechaEntrada, fechaSalida, reservas) {
